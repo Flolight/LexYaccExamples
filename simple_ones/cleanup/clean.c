@@ -368,8 +368,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 2
-#define YY_END_OF_BUFFER 3
+#define YY_NUM_RULES 3
+#define YY_END_OF_BUFFER 4
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -377,9 +377,9 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static yyconst flex_int16_t yy_accept[9] =
+static yyconst flex_int16_t yy_accept[11] =
     {   0,
-        0,    0,    3,    2,    2,    0,    1,    0
+        0,    0,    4,    3,    2,    3,    2,    0,    1,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -419,26 +419,28 @@ static yyconst flex_int32_t yy_meta[5] =
         1,    2,    1,    1
     } ;
 
-static yyconst flex_int16_t yy_base[11] =
+static yyconst flex_int16_t yy_base[13] =
     {   0,
-        3,    2,    5,    8,    0,    1,    8,    8,    0,    1
+        0,    0,    8,    9,    0,    0,    0,    4,    9,    9,
+        4,    3
     } ;
 
-static yyconst flex_int16_t yy_def[11] =
+static yyconst flex_int16_t yy_def[13] =
     {   0,
-        9,    9,    8,    8,   10,   10,    8,    0,    8,    8
+       10,    1,   10,   10,   11,   12,   11,   12,   10,    0,
+       10,   10
     } ;
 
-static yyconst flex_int16_t yy_nxt[13] =
+static yyconst flex_int16_t yy_nxt[14] =
     {   0,
-        4,    4,    6,    7,    8,    5,    5,    3,    8,    8,
-        8,    8
+        4,    5,    4,    6,    8,    7,    9,   10,    3,   10,
+       10,   10,   10
     } ;
 
-static yyconst flex_int16_t yy_chk[13] =
+static yyconst flex_int16_t yy_chk[14] =
     {   0,
-        9,    9,   10,    6,    3,    2,    1,    8,    8,    8,
-        8,    8
+        1,    1,    1,    1,   12,   11,    8,    3,   10,   10,
+       10,   10,   10
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -458,7 +460,7 @@ char *yytext;
 #line 1 "clean.l"
 #line 2 "clean.l"
 
-#line 462 "<stdout>"
+#line 464 "<stdout>"
 
 #define INITIAL 0
 
@@ -648,7 +650,7 @@ YY_DECL
 #line 7 "clean.l"
 
 
-#line 652 "<stdout>"
+#line 654 "<stdout>"
 
 	if ( !(yy_init) )
 		{
@@ -701,13 +703,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 9 )
+				if ( yy_current_state >= 11 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 8 );
+		while ( yy_base[yy_current_state] != 9 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -737,14 +739,19 @@ case 1:
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
 #line 9 "clean.l"
-{ printf(")"); }
+{ printf(")"); } /* We remove any space after a ( followed by a "punct" character */
 	YY_BREAK
 case 2:
+YY_RULE_SETUP
+#line 10 "clean.l"
+{ printf(" "); }
+	YY_BREAK
+case 3:
 YY_RULE_SETUP
 #line 12 "clean.l"
 ECHO;
 	YY_BREAK
-#line 748 "<stdout>"
+#line 755 "<stdout>"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1036,7 +1043,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 9 )
+			if ( yy_current_state >= 11 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -1064,11 +1071,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 9 )
+		if ( yy_current_state >= 11 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 8);
+	yy_is_jam = (yy_current_state == 10);
 
 	return yy_is_jam ? 0 : yy_current_state;
 }
