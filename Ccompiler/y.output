@@ -1,0 +1,944 @@
+   0  $accept : Prog $end
+
+   1  Prog : Fonctions
+
+   2  Fonctions :
+   3            | Fonction Fonctions
+
+   4  Fonction : tInt tId tPo Args tPf Body
+
+   5  Args :
+   6       | tInt tId ArgsN
+
+   7  ArgsN :
+   8        | tVg tInt tId ArgsN
+
+   9  Body : tAo Instrs tAf
+
+  10  Instrs :
+  11         | Aff tPv Instrs
+  12         | Decl tPv Instrs
+  13         | Invoc tPv Instrs
+  14         | If Instrs
+  15         | While Instrs
+
+  16  If : tIf tPo E tPf Body tElse
+
+  17  Else :
+  18       | tElse Body
+
+  19  E : tId
+  20    | tInt
+  21    | E tEquEqu E
+  22    | E tAnd E
+  23    | E tOr E
+  24    | Invoc
+  25    | tPo E tPf
+  26    | E tPlus E
+  27    | E tMoins E
+
+  28  While : tWhile tPo E tPf Body
+
+  29  Aff : tId tEqu E
+
+  30  Invoc : tId tPo Params tPf
+
+  31  Params :
+  32         | E ParamsN
+
+  33  ParamsN : tVg E ParamsN
+
+  34  Decl1 : tId
+  35        | tId tEqu E
+
+  36  Decl : tInt Decl1 DeclN
+
+  37  DeclN :
+  38        | tVg Decl1 DeclN
+
+state 0
+	$accept : . Prog $end  (0)
+	Fonctions : .  (2)
+
+	tInt  shift 1
+	$end  reduce 2
+
+	Prog  goto 2
+	Fonctions  goto 3
+	Fonction  goto 4
+
+
+state 1
+	Fonction : tInt . tId tPo Args tPf Body  (4)
+
+	tId  shift 5
+	.  error
+
+
+state 2
+	$accept : Prog . $end  (0)
+
+	$end  accept
+
+
+state 3
+	Prog : Fonctions .  (1)
+
+	.  reduce 1
+
+
+state 4
+	Fonctions : Fonction . Fonctions  (3)
+	Fonctions : .  (2)
+
+	tInt  shift 1
+	$end  reduce 2
+
+	Fonctions  goto 6
+	Fonction  goto 4
+
+
+state 5
+	Fonction : tInt tId . tPo Args tPf Body  (4)
+
+	tPo  shift 7
+	.  error
+
+
+state 6
+	Fonctions : Fonction Fonctions .  (3)
+
+	.  reduce 3
+
+
+state 7
+	Fonction : tInt tId tPo . Args tPf Body  (4)
+	Args : .  (5)
+
+	tInt  shift 8
+	tPf  reduce 5
+
+	Args  goto 9
+
+
+state 8
+	Args : tInt . tId ArgsN  (6)
+
+	tId  shift 10
+	.  error
+
+
+state 9
+	Fonction : tInt tId tPo Args . tPf Body  (4)
+
+	tPf  shift 11
+	.  error
+
+
+state 10
+	Args : tInt tId . ArgsN  (6)
+	ArgsN : .  (7)
+
+	tVg  shift 12
+	tPf  reduce 7
+
+	ArgsN  goto 13
+
+
+state 11
+	Fonction : tInt tId tPo Args tPf . Body  (4)
+
+	tAo  shift 14
+	.  error
+
+	Body  goto 15
+
+
+state 12
+	ArgsN : tVg . tInt tId ArgsN  (8)
+
+	tInt  shift 16
+	.  error
+
+
+state 13
+	Args : tInt tId ArgsN .  (6)
+
+	.  reduce 6
+
+
+state 14
+	Body : tAo . Instrs tAf  (9)
+	Instrs : .  (10)
+
+	tInt  shift 17
+	tId  shift 18
+	tIf  shift 19
+	tWhile  shift 20
+	tAf  reduce 10
+
+	Instrs  goto 21
+	Aff  goto 22
+	Decl  goto 23
+	Invoc  goto 24
+	If  goto 25
+	While  goto 26
+
+
+state 15
+	Fonction : tInt tId tPo Args tPf Body .  (4)
+
+	.  reduce 4
+
+
+state 16
+	ArgsN : tVg tInt . tId ArgsN  (8)
+
+	tId  shift 27
+	.  error
+
+
+state 17
+	Decl : tInt . Decl1 DeclN  (36)
+
+	tId  shift 28
+	.  error
+
+	Decl1  goto 29
+
+
+state 18
+	Aff : tId . tEqu E  (29)
+	Invoc : tId . tPo Params tPf  (30)
+
+	tPo  shift 30
+	tEqu  shift 31
+	.  error
+
+
+state 19
+	If : tIf . tPo E tPf Body tElse  (16)
+
+	tPo  shift 32
+	.  error
+
+
+state 20
+	While : tWhile . tPo E tPf Body  (28)
+
+	tPo  shift 33
+	.  error
+
+
+state 21
+	Body : tAo Instrs . tAf  (9)
+
+	tAf  shift 34
+	.  error
+
+
+state 22
+	Instrs : Aff . tPv Instrs  (11)
+
+	tPv  shift 35
+	.  error
+
+
+state 23
+	Instrs : Decl . tPv Instrs  (12)
+
+	tPv  shift 36
+	.  error
+
+
+state 24
+	Instrs : Invoc . tPv Instrs  (13)
+
+	tPv  shift 37
+	.  error
+
+
+state 25
+	Instrs : If . Instrs  (14)
+	Instrs : .  (10)
+
+	tInt  shift 17
+	tId  shift 18
+	tIf  shift 19
+	tWhile  shift 20
+	tAf  reduce 10
+
+	Instrs  goto 38
+	Aff  goto 22
+	Decl  goto 23
+	Invoc  goto 24
+	If  goto 25
+	While  goto 26
+
+
+state 26
+	Instrs : While . Instrs  (15)
+	Instrs : .  (10)
+
+	tInt  shift 17
+	tId  shift 18
+	tIf  shift 19
+	tWhile  shift 20
+	tAf  reduce 10
+
+	Instrs  goto 39
+	Aff  goto 22
+	Decl  goto 23
+	Invoc  goto 24
+	If  goto 25
+	While  goto 26
+
+
+state 27
+	ArgsN : tVg tInt tId . ArgsN  (8)
+	ArgsN : .  (7)
+
+	tVg  shift 12
+	tPf  reduce 7
+
+	ArgsN  goto 40
+
+
+state 28
+	Decl1 : tId .  (34)
+	Decl1 : tId . tEqu E  (35)
+
+	tEqu  shift 41
+	tVg  reduce 34
+	tPv  reduce 34
+
+
+state 29
+	Decl : tInt Decl1 . DeclN  (36)
+	DeclN : .  (37)
+
+	tVg  shift 42
+	tPv  reduce 37
+
+	DeclN  goto 43
+
+
+state 30
+	Invoc : tId tPo . Params tPf  (30)
+	Params : .  (31)
+
+	tInt  shift 44
+	tId  shift 45
+	tPo  shift 46
+	tPf  reduce 31
+
+	Invoc  goto 47
+	E  goto 48
+	Params  goto 49
+
+
+state 31
+	Aff : tId tEqu . E  (29)
+
+	tInt  shift 44
+	tId  shift 45
+	tPo  shift 46
+	.  error
+
+	Invoc  goto 47
+	E  goto 50
+
+
+state 32
+	If : tIf tPo . E tPf Body tElse  (16)
+
+	tInt  shift 44
+	tId  shift 45
+	tPo  shift 46
+	.  error
+
+	Invoc  goto 47
+	E  goto 51
+
+
+state 33
+	While : tWhile tPo . E tPf Body  (28)
+
+	tInt  shift 44
+	tId  shift 45
+	tPo  shift 46
+	.  error
+
+	Invoc  goto 47
+	E  goto 52
+
+
+state 34
+	Body : tAo Instrs tAf .  (9)
+
+	.  reduce 9
+
+
+state 35
+	Instrs : Aff tPv . Instrs  (11)
+	Instrs : .  (10)
+
+	tInt  shift 17
+	tId  shift 18
+	tIf  shift 19
+	tWhile  shift 20
+	tAf  reduce 10
+
+	Instrs  goto 53
+	Aff  goto 22
+	Decl  goto 23
+	Invoc  goto 24
+	If  goto 25
+	While  goto 26
+
+
+state 36
+	Instrs : Decl tPv . Instrs  (12)
+	Instrs : .  (10)
+
+	tInt  shift 17
+	tId  shift 18
+	tIf  shift 19
+	tWhile  shift 20
+	tAf  reduce 10
+
+	Instrs  goto 54
+	Aff  goto 22
+	Decl  goto 23
+	Invoc  goto 24
+	If  goto 25
+	While  goto 26
+
+
+state 37
+	Instrs : Invoc tPv . Instrs  (13)
+	Instrs : .  (10)
+
+	tInt  shift 17
+	tId  shift 18
+	tIf  shift 19
+	tWhile  shift 20
+	tAf  reduce 10
+
+	Instrs  goto 55
+	Aff  goto 22
+	Decl  goto 23
+	Invoc  goto 24
+	If  goto 25
+	While  goto 26
+
+
+state 38
+	Instrs : If Instrs .  (14)
+
+	.  reduce 14
+
+
+state 39
+	Instrs : While Instrs .  (15)
+
+	.  reduce 15
+
+
+state 40
+	ArgsN : tVg tInt tId ArgsN .  (8)
+
+	.  reduce 8
+
+
+state 41
+	Decl1 : tId tEqu . E  (35)
+
+	tInt  shift 44
+	tId  shift 45
+	tPo  shift 46
+	.  error
+
+	Invoc  goto 47
+	E  goto 56
+
+
+state 42
+	DeclN : tVg . Decl1 DeclN  (38)
+
+	tId  shift 28
+	.  error
+
+	Decl1  goto 57
+
+
+state 43
+	Decl : tInt Decl1 DeclN .  (36)
+
+	.  reduce 36
+
+
+state 44
+	E : tInt .  (20)
+
+	.  reduce 20
+
+
+state 45
+	E : tId .  (19)
+	Invoc : tId . tPo Params tPf  (30)
+
+	tPo  shift 30
+	tVg  reduce 19
+	tPv  reduce 19
+	tPf  reduce 19
+	tEquEqu  reduce 19
+	tAnd  reduce 19
+	tOr  reduce 19
+	tPlus  reduce 19
+	tMoins  reduce 19
+
+
+state 46
+	E : tPo . E tPf  (25)
+
+	tInt  shift 44
+	tId  shift 45
+	tPo  shift 46
+	.  error
+
+	Invoc  goto 47
+	E  goto 58
+
+
+state 47
+	E : Invoc .  (24)
+
+	.  reduce 24
+
+
+state 48
+	E : E . tEquEqu E  (21)
+	E : E . tAnd E  (22)
+	E : E . tOr E  (23)
+	E : E . tPlus E  (26)
+	E : E . tMoins E  (27)
+	Params : E . ParamsN  (32)
+
+	tVg  shift 59
+	tEquEqu  shift 60
+	tAnd  shift 61
+	tOr  shift 62
+	tPlus  shift 63
+	tMoins  shift 64
+	.  error
+
+	ParamsN  goto 65
+
+
+state 49
+	Invoc : tId tPo Params . tPf  (30)
+
+	tPf  shift 66
+	.  error
+
+
+state 50
+	E : E . tEquEqu E  (21)
+	E : E . tAnd E  (22)
+	E : E . tOr E  (23)
+	E : E . tPlus E  (26)
+	E : E . tMoins E  (27)
+	Aff : tId tEqu E .  (29)
+
+	tEquEqu  shift 60
+	tAnd  shift 61
+	tOr  shift 62
+	tPlus  shift 63
+	tMoins  shift 64
+	tPv  reduce 29
+
+
+state 51
+	If : tIf tPo E . tPf Body tElse  (16)
+	E : E . tEquEqu E  (21)
+	E : E . tAnd E  (22)
+	E : E . tOr E  (23)
+	E : E . tPlus E  (26)
+	E : E . tMoins E  (27)
+
+	tPf  shift 67
+	tEquEqu  shift 60
+	tAnd  shift 61
+	tOr  shift 62
+	tPlus  shift 63
+	tMoins  shift 64
+	.  error
+
+
+state 52
+	E : E . tEquEqu E  (21)
+	E : E . tAnd E  (22)
+	E : E . tOr E  (23)
+	E : E . tPlus E  (26)
+	E : E . tMoins E  (27)
+	While : tWhile tPo E . tPf Body  (28)
+
+	tPf  shift 68
+	tEquEqu  shift 60
+	tAnd  shift 61
+	tOr  shift 62
+	tPlus  shift 63
+	tMoins  shift 64
+	.  error
+
+
+state 53
+	Instrs : Aff tPv Instrs .  (11)
+
+	.  reduce 11
+
+
+state 54
+	Instrs : Decl tPv Instrs .  (12)
+
+	.  reduce 12
+
+
+state 55
+	Instrs : Invoc tPv Instrs .  (13)
+
+	.  reduce 13
+
+
+state 56
+	E : E . tEquEqu E  (21)
+	E : E . tAnd E  (22)
+	E : E . tOr E  (23)
+	E : E . tPlus E  (26)
+	E : E . tMoins E  (27)
+	Decl1 : tId tEqu E .  (35)
+
+	tEquEqu  shift 60
+	tAnd  shift 61
+	tOr  shift 62
+	tPlus  shift 63
+	tMoins  shift 64
+	tVg  reduce 35
+	tPv  reduce 35
+
+
+state 57
+	DeclN : tVg Decl1 . DeclN  (38)
+	DeclN : .  (37)
+
+	tVg  shift 42
+	tPv  reduce 37
+
+	DeclN  goto 69
+
+
+state 58
+	E : E . tEquEqu E  (21)
+	E : E . tAnd E  (22)
+	E : E . tOr E  (23)
+	E : tPo E . tPf  (25)
+	E : E . tPlus E  (26)
+	E : E . tMoins E  (27)
+
+	tPf  shift 70
+	tEquEqu  shift 60
+	tAnd  shift 61
+	tOr  shift 62
+	tPlus  shift 63
+	tMoins  shift 64
+	.  error
+
+
+state 59
+	ParamsN : tVg . E ParamsN  (33)
+
+	tInt  shift 44
+	tId  shift 45
+	tPo  shift 46
+	.  error
+
+	Invoc  goto 47
+	E  goto 71
+
+
+state 60
+	E : E tEquEqu . E  (21)
+
+	tInt  shift 44
+	tId  shift 45
+	tPo  shift 46
+	.  error
+
+	Invoc  goto 47
+	E  goto 72
+
+
+state 61
+	E : E tAnd . E  (22)
+
+	tInt  shift 44
+	tId  shift 45
+	tPo  shift 46
+	.  error
+
+	Invoc  goto 47
+	E  goto 73
+
+
+state 62
+	E : E tOr . E  (23)
+
+	tInt  shift 44
+	tId  shift 45
+	tPo  shift 46
+	.  error
+
+	Invoc  goto 47
+	E  goto 74
+
+
+state 63
+	E : E tPlus . E  (26)
+
+	tInt  shift 44
+	tId  shift 45
+	tPo  shift 46
+	.  error
+
+	Invoc  goto 47
+	E  goto 75
+
+
+state 64
+	E : E tMoins . E  (27)
+
+	tInt  shift 44
+	tId  shift 45
+	tPo  shift 46
+	.  error
+
+	Invoc  goto 47
+	E  goto 76
+
+
+state 65
+	Params : E ParamsN .  (32)
+
+	.  reduce 32
+
+
+state 66
+	Invoc : tId tPo Params tPf .  (30)
+
+	.  reduce 30
+
+
+state 67
+	If : tIf tPo E tPf . Body tElse  (16)
+
+	tAo  shift 14
+	.  error
+
+	Body  goto 77
+
+
+state 68
+	While : tWhile tPo E tPf . Body  (28)
+
+	tAo  shift 14
+	.  error
+
+	Body  goto 78
+
+
+state 69
+	DeclN : tVg Decl1 DeclN .  (38)
+
+	.  reduce 38
+
+
+state 70
+	E : tPo E tPf .  (25)
+
+	.  reduce 25
+
+
+state 71
+	E : E . tEquEqu E  (21)
+	E : E . tAnd E  (22)
+	E : E . tOr E  (23)
+	E : E . tPlus E  (26)
+	E : E . tMoins E  (27)
+	ParamsN : tVg E . ParamsN  (33)
+
+	tVg  shift 59
+	tEquEqu  shift 60
+	tAnd  shift 61
+	tOr  shift 62
+	tPlus  shift 63
+	tMoins  shift 64
+	.  error
+
+	ParamsN  goto 79
+
+
+72: shift/reduce conflict (shift 60, reduce 21) on tEquEqu
+72: shift/reduce conflict (shift 61, reduce 21) on tAnd
+72: shift/reduce conflict (shift 62, reduce 21) on tOr
+72: shift/reduce conflict (shift 63, reduce 21) on tPlus
+72: shift/reduce conflict (shift 64, reduce 21) on tMoins
+state 72
+	E : E . tEquEqu E  (21)
+	E : E tEquEqu E .  (21)
+	E : E . tAnd E  (22)
+	E : E . tOr E  (23)
+	E : E . tPlus E  (26)
+	E : E . tMoins E  (27)
+
+	tEquEqu  shift 60
+	tAnd  shift 61
+	tOr  shift 62
+	tPlus  shift 63
+	tMoins  shift 64
+	tVg  reduce 21
+	tPv  reduce 21
+	tPf  reduce 21
+
+
+73: shift/reduce conflict (shift 60, reduce 22) on tEquEqu
+73: shift/reduce conflict (shift 61, reduce 22) on tAnd
+73: shift/reduce conflict (shift 62, reduce 22) on tOr
+73: shift/reduce conflict (shift 63, reduce 22) on tPlus
+73: shift/reduce conflict (shift 64, reduce 22) on tMoins
+state 73
+	E : E . tEquEqu E  (21)
+	E : E . tAnd E  (22)
+	E : E tAnd E .  (22)
+	E : E . tOr E  (23)
+	E : E . tPlus E  (26)
+	E : E . tMoins E  (27)
+
+	tEquEqu  shift 60
+	tAnd  shift 61
+	tOr  shift 62
+	tPlus  shift 63
+	tMoins  shift 64
+	tVg  reduce 22
+	tPv  reduce 22
+	tPf  reduce 22
+
+
+74: shift/reduce conflict (shift 60, reduce 23) on tEquEqu
+74: shift/reduce conflict (shift 61, reduce 23) on tAnd
+74: shift/reduce conflict (shift 62, reduce 23) on tOr
+74: shift/reduce conflict (shift 63, reduce 23) on tPlus
+74: shift/reduce conflict (shift 64, reduce 23) on tMoins
+state 74
+	E : E . tEquEqu E  (21)
+	E : E . tAnd E  (22)
+	E : E . tOr E  (23)
+	E : E tOr E .  (23)
+	E : E . tPlus E  (26)
+	E : E . tMoins E  (27)
+
+	tEquEqu  shift 60
+	tAnd  shift 61
+	tOr  shift 62
+	tPlus  shift 63
+	tMoins  shift 64
+	tVg  reduce 23
+	tPv  reduce 23
+	tPf  reduce 23
+
+
+75: shift/reduce conflict (shift 60, reduce 26) on tEquEqu
+75: shift/reduce conflict (shift 61, reduce 26) on tAnd
+75: shift/reduce conflict (shift 62, reduce 26) on tOr
+75: shift/reduce conflict (shift 63, reduce 26) on tPlus
+75: shift/reduce conflict (shift 64, reduce 26) on tMoins
+state 75
+	E : E . tEquEqu E  (21)
+	E : E . tAnd E  (22)
+	E : E . tOr E  (23)
+	E : E . tPlus E  (26)
+	E : E tPlus E .  (26)
+	E : E . tMoins E  (27)
+
+	tEquEqu  shift 60
+	tAnd  shift 61
+	tOr  shift 62
+	tPlus  shift 63
+	tMoins  shift 64
+	tVg  reduce 26
+	tPv  reduce 26
+	tPf  reduce 26
+
+
+76: shift/reduce conflict (shift 60, reduce 27) on tEquEqu
+76: shift/reduce conflict (shift 61, reduce 27) on tAnd
+76: shift/reduce conflict (shift 62, reduce 27) on tOr
+76: shift/reduce conflict (shift 63, reduce 27) on tPlus
+76: shift/reduce conflict (shift 64, reduce 27) on tMoins
+state 76
+	E : E . tEquEqu E  (21)
+	E : E . tAnd E  (22)
+	E : E . tOr E  (23)
+	E : E . tPlus E  (26)
+	E : E . tMoins E  (27)
+	E : E tMoins E .  (27)
+
+	tEquEqu  shift 60
+	tAnd  shift 61
+	tOr  shift 62
+	tPlus  shift 63
+	tMoins  shift 64
+	tVg  reduce 27
+	tPv  reduce 27
+	tPf  reduce 27
+
+
+state 77
+	If : tIf tPo E tPf Body . tElse  (16)
+
+	tElse  shift 80
+	.  error
+
+
+state 78
+	While : tWhile tPo E tPf Body .  (28)
+
+	.  reduce 28
+
+
+state 79
+	ParamsN : tVg E ParamsN .  (33)
+
+	.  reduce 33
+
+
+state 80
+	If : tIf tPo E tPf Body tElse .  (16)
+
+	.  reduce 16
+
+
+Rules never reduced:
+	Else :  (17)
+	Else : tElse Body  (18)
+
+
+State 72 contains 5 shift/reduce conflicts.
+State 73 contains 5 shift/reduce conflicts.
+State 74 contains 5 shift/reduce conflicts.
+State 75 contains 5 shift/reduce conflicts.
+State 76 contains 5 shift/reduce conflicts.
+
+
+19 terminals, 19 nonterminals
+39 grammar rules, 81 states

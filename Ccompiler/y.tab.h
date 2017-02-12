@@ -1,0 +1,17 @@
+#define tInt 257
+#define tId 258
+#define tVg 259
+#define tPv 260
+#define tPo 261
+#define tPf 262
+#define tAo 263
+#define tAf 264
+#define tIf 265
+#define tElse 266
+#define tWhile 267
+#define tEqu 268
+#define tEquEqu 269
+#define tAnd 270
+#define tOr 271
+#define tPlus 272
+#define tMoins 273
